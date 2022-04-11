@@ -10,4 +10,6 @@ Rails.application.routes.draw do
   #The preceeding line can be replaced as follows:
   resources :articles
 
+  get "signup", to: "users#new"
+  resources :users, except: [:new]
 end
