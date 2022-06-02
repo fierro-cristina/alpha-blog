@@ -14,15 +14,26 @@
             Articles
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <%= link_to "Create New Article", new_article_path, class:"dropdown-item"%>
-            <li><hr class="dropdown-divider"></li>
+            <% if is_logged_in? %>
+              <%= link_to "Create New Article", new_article_path, class:"dropdown-item"%>
+              <li><hr class="dropdown-divider"></li>
+            <%end%>
             <%= link_to "View all articles", articles_path, class:"dropdown-item"%>
           </ul>
         </li>
         
         <% if is_logged_in? %>
-          <li class="nav-item">
-            <%= link_to current_user.username, user_path(current_user), class: "nav-link" %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <%= current_user.username %>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <%= link_to "My profile", user_path(current_user), class:"dropdown-item"%>
+              <li><hr class="dropdown-divider"></li>
+              <%= link_to "Edit Profile", edit_user_path(current_user), class: "dropdown-item"%>
+              <li><hr class="dropdown-divider"></li>
+              <%= button_to "Delete Profile", user_path(current_user), class: "dropdown-item text-danger", method: :delete, :onclick => "return confirm('Are you sure you want to delete your account?')" %>
+            </ul>
           </li>
           <li class="nav-item">
             <%= link_to "Log Out", logout_path, class: "nav-link", data: {turbo_method: :delete} %>

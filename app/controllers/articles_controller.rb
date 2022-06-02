@@ -1,6 +1,8 @@
 class ArticlesController < ApplicationController
     
     before_action :set_article, only: [:show, :edit, :update, :destroy]
+    before_action :user_required, except: [:index, :show]
+    before_action :same_user_required, only: [:edit, :update, :destroy]
 
     def home
     end
